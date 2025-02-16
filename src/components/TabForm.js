@@ -3,20 +3,23 @@ import { Tabs } from "../config/TabConfig";
 
 const TabForm = () => {
   const [formData,setFormData] = useState({
-    name:'pawan',
-    age:29,
-    email:'pawan.k1728@gmail.com',
-    interests:['Music','Cricket','Tracking'],
+    name:'',
+    age:'',
+    email:'',
+    interests:[],
     theme:'dark'
   })
   const [activeTab, setActiveTab] = useState(0);
+  const [error,setError] = useState({})
 
   const TabContainer = Tabs[activeTab].component;
   const handlePrevTabs = () => {
     setActiveTab((prev) => prev - 1);
   };
   const handleNextTabs = () => {
+    if(Tabs[activeTab].validate(formData,setError)){
     setActiveTab((prev) => prev + 1);
+    }
   };
   const handleFormSubmit = () =>{
     console.log("formData",formData);
@@ -45,7 +48,7 @@ const TabForm = () => {
         })}
       </div>
       <div className="p-2 border border-black rounded-md min-h-48 w-11/12">
-        <TabContainer formData={formData} setFormData={setFormData}/>
+        <TabContainer formData={formData} setFormData={setFormData} error={error}/>
       </div>
       <div className="flex ">
         {activeTab > 0 && (

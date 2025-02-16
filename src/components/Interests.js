@@ -1,15 +1,13 @@
 import React from "react";
 
-const Interests = ({ formData, setFormData }) => {
+const Interests = ({ formData, setFormData,error }) => {
   const handleInputChange = (e) => {
     setFormData((prev) => ({ ...prev,
        interests: e.target.checked ?
         [...prev.interests, e.target.name] :
          prev.interests.filter((i)=>i !== e.target.name)
      }));
-  };
-  console.log(formData.interests);
-  
+  };  
   return (
     <div>
       <div>
@@ -47,6 +45,7 @@ const Interests = ({ formData, setFormData }) => {
           Tracking
         </label>
       </div>
+      {error && <p className="text-red-500">{error.interests}</p>}
     </div>
   );
 };
